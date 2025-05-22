@@ -25,5 +25,4 @@ public interface BadConfig {
         @WithName("sub.id")
         int id();
     }
-
 }

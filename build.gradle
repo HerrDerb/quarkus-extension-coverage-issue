@@ -1,19 +1,33 @@
-allprojects {
+plugins {
+    id 'com.diffplug.spotless'
+}
+
+import com.diffplug.spotless.LineEnding
+
+subprojects {
     apply plugin: 'maven-publish'
     apply plugin: 'java-library'
+    apply plugin: 'com.diffplug.spotless'
     group = 'com.example'
     version = "$version"
 
-
+    spotless {
+        format 'misc', {
+            target '*.gradle', '*.md', '.gitignore', '*.sh', 'Dockerfile'
+            trimTrailingWhitespace()
+            endWithNewline()
+            lineEndings LineEnding.UNIX
+        }
+    }
     pluginManager.withPlugin("java-library") {
         apply plugin: 'jacoco'
         dependencies {
-            implementation platform('io.quarkus.platform:quarkus-bom:2.15.3.Final')
+            implementation platform('io.quarkus.platform:quarkus-bom:3.21.4')
 
-            compileOnly "org.projectlombok:lombok:1.18.24"
-            annotationProcessor "org.projectlombok:lombok:1.18.22"
-            testCompileOnly "org.projectlombok:lombok:1.18.22"
-            testAnnotationProcessor "org.projectlombok:lombok:1.18.22"
+            compileOnly "org.projectlombok:lombok:1.18.38"
+            annotationProcessor "org.projectlombok:lombok:1.18.38"
+            testCompileOnly "org.projectlombok:lombok:1.18.38"
+            testAnnotationProcessor "org.projectlombok:lombok:1.18.38"
         }
 
         test {
@@ -22,7 +36,18 @@ allprojects {
         }
 
         java {
-               withSourcesJar()
+            withSourcesJar()
+        }
+
+        spotless {
+            java {
+                palantirJavaFormat('2.47.0')
+                targetExclude '**/generated/**/*.java'
+                lineEndings LineEnding.UNIX
+                trimTrailingWhitespace()
+                endWithNewline()
+                removeUnusedImports()
+            }
         }
 
     }

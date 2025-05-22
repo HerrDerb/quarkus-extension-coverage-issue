@@ -11,14 +11,14 @@ import java.util.Map;
 public interface GoodConfig {
 
     // Use an additional wrapper makes the whole thing working.
-    
+
     /**
      * @return
      */
     @WithParentName
     Map<String, NestedProperties> nested();
 
-    public interface Wrapper{
+    public interface Wrapper {
 
         /**
          * @return
@@ -33,6 +33,4 @@ public interface GoodConfig {
          */
         int id();
     }
-
-    
 }
