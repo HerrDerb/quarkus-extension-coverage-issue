@@ -7,10 +7,12 @@ dependencies {
 
     implementation 'io.quarkus:quarkus-core-deployment'
     implementation 'io.quarkus:quarkus-arc-deployment'
+    implementation 'io.quarkus:quarkus-smallrye-fault-tolerance-deployment'
 
+    testImplementation 'org.assertj:assertj-core:3.27.3'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.quarkus:quarkus-junit5-internal'
-    testImplementation("io.quarkus:quarkus-jacoco")
+    testImplementation 'io.quarkus:quarkus-jacoco'
 }
 
 publishing {
